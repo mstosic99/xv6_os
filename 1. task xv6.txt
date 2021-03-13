@@ -1,16 +1,36 @@
 ﻿OS2021 - Domaći 1
 Promena boje ekrana
-Cilj domaćeg zadatka je izmeniti xv6 sistem tako da podržava promenu boje slova i pozadine za čitav ekran. Završen domaći treba da sadrži sledeće funkcionalnosti:
+Cilj domaćeg zadatka je izmeniti xv6 sistem tako da podržava
+promenu boje slova i pozadine za čitav ekran.
+
 * Prikaz i sakrivanje menija za izbor boje.
 * Kretanje kroz meni i izbor stavke.
 * Izbor boje za pozadinu i za slova na ekranu.
 
 
 Prikazivanje i sakrivanje tabele
-Neophodno je podržati prikaz tabele sa bojama, i omogućiti korisniku kretanje kroz tu tabelu i izbor stavke. U tabelu se ulazi tako što se drži pritisnut taster <ALT>, i pritisne kombinacija slova: c o l. Treba da bude moguće i puštanje tastera <ALT> između pojedinačnih slova, dok god ništa drugo nije pritisnuto između pojedinačnih slova. Ista kombinacija tastera treba da sakrije tabelu i vrati korisnika u normalan režim rada. Dok je tabela prikazana, ništa osim tastera za kretanje kroz tabelu ne treba da ima efekat na terminal. Taster <ALT> ne treba da bude pritisnut dok se radi sa tabelom - samo pri njenom prikazivanju i sakrivanju. Nakon što se tabela skloni sa ekrana, na njenom mestu treba da se pojavi ono što se na tom mestu nalazilo pre nego što se tabela pojavila.
+Neophodno je podržati prikaz tabele sa bojama, i omogućiti korisniku 
+kretanje kroz tu tabelu i izbor stavke. U tabelu se ulazi tako što se 
+drži pritisnut taster <ALT>, i pritisne kombinacija slova: c o l.
+Treba da bude moguće i puštanje tastera <ALT> između pojedinačnih slova,
+dok god ništa drugo nije pritisnuto između pojedinačnih slova.
+Ista kombinacija tastera treba da sakrije tabelu i vrati korisnika u normalan režim rada.
+Dok je tabela prikazana, ništa osim tastera za kretanje kroz tabelu ne treba da ima efekat na terminal.
+Taster <ALT> ne treba da bude pritisnut dok se radi sa tabelom - samo pri njenom prikazivanju i sakrivanju.
+Nakon što se tabela skloni sa ekrana, na njenom mestu treba da se pojavi ono što se na
+tom mestu nalazilo pre nego što se tabela pojavila.
 
 Pozicija i izgled tabele
-Tabela se nalazi u gornjem desnom ćošku ekrana, i treba da ima dve kolone: jednu za izbor boje slova, i drugu za izbor boje pozadine. Obe kolone imaju po osam stavki - jednu za svaku osnovnu boju podržanu u xv6: Black, Blue, Green, Aqua, Red, Purple, Yellow, White. Tabela treba da bude prikazana u jarko beloj boji (0xf) na crnoj pozadini (0x0). Tabela se prikazuje u ovim bojama čak i ako je neka druga kombinacija boja selektovana za ostatak terminala. Trenutna pozicija unutar tabele treba da bude označena obrnutim bojama - crnim slovima na jarko beloj pozadini. U narednom primeru je korisnik postavio kursor u tabeli na stavku “Green” u prvoj koloni.
+Tabela se nalazi u gornjem desnom ćošku ekrana, i treba da ima dve kolone:
+jednu za izbor boje slova, i drugu za izbor boje pozadine.
+Obe kolone imaju po osam stavki - jednu za svaku osnovnu boju podržanu u xv6:
+Black, Blue, Green, Aqua, Red, Purple, Yellow, White.
+Tabela treba da bude prikazana u jarko beloj boji (0xf) na crnoj pozadini (0x0).
+Tabela se prikazuje u ovim bojama čak i ako je neka druga kombinacija boja
+selektovana za ostatak terminala.
+Trenutna pozicija unutar tabele treba da bude označena
+obrnutim bojama - crnim slovima na jarko beloj pozadini.
+U narednom primeru je korisnik postavio kursor u tabeli na stavku “Green” u prvoj koloni.
 /---FG--- ---BG---\
 |Black   |Black   |
 |Blue    |Blue    |
