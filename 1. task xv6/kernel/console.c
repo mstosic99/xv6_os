@@ -128,6 +128,23 @@ panic(char *s)
 static ushort *crt = (ushort*)P2V(0xb8000);  // CGA memory
 
 
+int altValidator;
+
+int colorsActive = 0;
+
+
+ushort consolebuf[80*24];
+
+uint currentSelection = 0x0000;
+
+int currentColor = 0x0700;
+
+typedef struct Pair{
+	int x, y;
+}Pair;
+
+Pair pair = {7, 0};
+
 static void
 cgaputc(int c)
 {
@@ -144,7 +161,7 @@ cgaputc(int c)
 	else if(c == BACKSPACE){
 		if(pos > 0) --pos;
 	} else
-		crt[pos++] = (c&0xff) | 0x0700;  // black on white
+		crt[pos++] = (c&0xff) | currentColor;  // black on white
 
 	if(pos < 0 || pos > 25*80)
 		panic("pos under/overflow");
@@ -153,6 +170,9 @@ cgaputc(int c)
 		memmove(crt, crt+80, sizeof(crt[0])*23*80);
 		pos -= 80;
 		memset(crt+pos, 0, sizeof(crt[0])*(24*80 - pos));
+		for(int i = 0; i < 80; i++) {
+			crt[80*23 + i] = currentColor | 0x0020;
+		}
 	}
 
 	outb(CRTPORT, 14);
@@ -188,22 +208,7 @@ struct {
 
 #define C(x)  ((x)-'@')  // Control-x
 
-int altValidator;
 
-int colorsActive = 0;
-
-
-ushort consolebuf[80*24];
-
-uint currentSelection = 0x0000;
-
-int currentColor = 0x0700;
-
-typedef struct Pair{
-	int x, y;
-}Pair;
-
-Pair pair = {7, 0};
 
 void
 paintPalette() {
@@ -558,8 +563,19 @@ paintPalette() {
 
 }
 
+int isLight;
+
 void
-showColors(){
+switchColor() {
+
+	for(int i = 0; i < 80*24; i++) {
+		consolebuf[i] = (consolebuf[i] & 0x00ff) | currentColor;
+	}
+	paintPalette();
+}
+
+void
+showColorPalette(){
 	if(altValidator != 3)
 		return;
 	if(!colorsActive) {
@@ -614,21 +630,21 @@ consoleintr(int (*getc)(void))
 			break;
 		case C('_'): // Alt + C
 			altValidator = 1;
-			showColors();
+			showColorPalette();
 			break;
 		case C(']'): // Alt + O
 			if(altValidator == 1)
 				altValidator = 2;
 			else 
 				altValidator = 0;
-			showColors();
+			showColorPalette();
 			break;
 		case C('^'): // Alt + L
 			if(altValidator == 2)
 				altValidator = 3;
 			else
 				altValidator = 0;
-			showColors();
+			showColorPalette();
 			break;
 		default:
 			if(colorsActive) {
@@ -670,11 +686,20 @@ consoleintr(int (*getc)(void))
 						pair.x++;
 					}
 				} else if (c == 'e') {
-					// TODO
+					if(pair.y == 0) {
+						currentColor = (currentColor & 0xf0ff) | currentSelection;
+					} else {
+						currentColor = (currentColor & 0x0fff) | currentSelection;
+					}
 
 				} else if (c == 'r') {
-					// TODO
+					if(pair.y == 0) {
+						currentColor = (currentColor & 0xf0ff) | (((currentSelection >> 8) + 8) << 8);
+					} else {
+						currentColor = (currentColor & 0x0fff) | (((currentSelection >> 12) + 8) << 12);
+					}
 				}
+				switchColor();
 				paintPalette();
 				break;
 			}
