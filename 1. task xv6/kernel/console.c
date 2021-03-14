@@ -156,9 +156,10 @@ cgaputc(int c)
 	outb(CRTPORT, 15);
 	pos |= inb(CRTPORT+1);
 
-	if(c == '\n')
+	if(c == '\n'){
+		crt[pos] = currentColor | 0x0020;
 		pos += 80 - pos%80;
-	else if(c == BACKSPACE){
+	} else if(c == BACKSPACE){
 		if(pos > 0) --pos;
 	} else
 		crt[pos++] = (c&0xff) | currentColor;  // black on white
