@@ -249,14 +249,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700; 	
 
-			!isSelected ? (crt[position++] = 0x42 | 0x0700) : (crt[position++] = 0x42 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000);
-			!isSelected ? (crt[position++] = 0x61 | 0x0700) : (crt[position++] = 0x61 | 0x7000);
-			!isSelected ? (crt[position++] = 0x63 | 0x0700) : (crt[position++] = 0x63 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6b | 0x0700) : (crt[position++] = 0x6b | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x42 | 0x0f00) : (crt[position++] = 0x42 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000);
+			!isSelected ? (crt[position++] = 0x61 | 0x0f00) : (crt[position++] = 0x61 | 0xf000);
+			!isSelected ? (crt[position++] = 0x63 | 0x0f00) : (crt[position++] = 0x63 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6b | 0x0f00) : (crt[position++] = 0x6b | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position++] = 0x7c | 0x0700;
 			
@@ -267,14 +267,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 			 													
-			!isSelected ? (crt[position++] = 0x42 | 0x0700) : (crt[position++] = 0x42 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000); 
-			!isSelected ? (crt[position++] = 0x61 | 0x0700) : (crt[position++] = 0x61 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x63 | 0x0700) : (crt[position++] = 0x63 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6b | 0x0700) : (crt[position++] = 0x6b | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
+			!isSelected ? (crt[position++] = 0x42 | 0x0f00) : (crt[position++] = 0x42 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000); 
+			!isSelected ? (crt[position++] = 0x61 | 0x0f00) : (crt[position++] = 0x61 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x63 | 0x0f00) : (crt[position++] = 0x63 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6b | 0x0f00) : (crt[position++] = 0x6b | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
 
 			crt[position] = 0x7c | 0x0700; 
 		} else if(position == 61 + 80*2) {												// BLUE
@@ -286,14 +286,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x42 | 0x0700) : (crt[position++] = 0x42 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000);			
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
+			!isSelected ? (crt[position++] = 0x42 | 0x0f00) : (crt[position++] = 0x42 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000);			
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
 		
 			crt[position++] = 0x7c | 0x0700; 
 
@@ -304,14 +304,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x42 | 0x0700) : (crt[position++] = 0x42 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000);			
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);			
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x42 | 0x0f00) : (crt[position++] = 0x42 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000);			
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);			
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700; 
 
@@ -324,14 +324,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x47 | 0x0700) : (crt[position++] = 0x47 | 0x7000);
-			!isSelected ? (crt[position++] = 0x72 | 0x0700) : (crt[position++] = 0x72 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6e | 0x0700) : (crt[position++] = 0x6e | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x47 | 0x0f00) : (crt[position++] = 0x47 | 0xf000);
+			!isSelected ? (crt[position++] = 0x72 | 0x0f00) : (crt[position++] = 0x72 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6e | 0x0f00) : (crt[position++] = 0x6e | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position++] = 0x7c | 0x0700;
 
@@ -342,14 +342,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x47 | 0x0700) : (crt[position++] = 0x47 | 0x7000);
-			!isSelected ? (crt[position++] = 0x72 | 0x0700) : (crt[position++] = 0x72 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6e | 0x0700) : (crt[position++] = 0x6e | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x47 | 0x0f00) : (crt[position++] = 0x47 | 0xf000);
+			!isSelected ? (crt[position++] = 0x72 | 0x0f00) : (crt[position++] = 0x72 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6e | 0x0f00) : (crt[position++] = 0x6e | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 			crt[position] = 0x7c | 0x0700; 
 		} else if(position == 61 + 80*4) {												// AQUA
 
@@ -360,14 +360,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700; 
 			
-			!isSelected ? (crt[position++] = 0x41 | 0x0700) : (crt[position++] = 0x41 | 0x7000);
-			!isSelected ? (crt[position++] = 0x71 | 0x0700) : (crt[position++] = 0x71 | 0x7000);
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);
-			!isSelected ? (crt[position++] = 0x61 | 0x0700) : (crt[position++] = 0x61 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x41 | 0x0f00) : (crt[position++] = 0x41 | 0xf000);
+			!isSelected ? (crt[position++] = 0x71 | 0x0f00) : (crt[position++] = 0x71 | 0xf000);
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);
+			!isSelected ? (crt[position++] = 0x61 | 0x0f00) : (crt[position++] = 0x61 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 			
 			crt[position++] = 0x7c | 0x0700; 
 
@@ -378,14 +378,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x41 | 0x0700) : (crt[position++] = 0x41 | 0x7000);
-			!isSelected ? (crt[position++] = 0x71 | 0x0700) : (crt[position++] = 0x71 | 0x7000);
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);
-			!isSelected ? (crt[position++] = 0x61 | 0x0700) : (crt[position++] = 0x61 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x41 | 0x0f00) : (crt[position++] = 0x41 | 0xf000);
+			!isSelected ? (crt[position++] = 0x71 | 0x0f00) : (crt[position++] = 0x71 | 0xf000);
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);
+			!isSelected ? (crt[position++] = 0x61 | 0x0f00) : (crt[position++] = 0x61 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700; 
 
@@ -398,14 +398,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x52 | 0x0700) : (crt[position++] = 0x52 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x64 | 0x0700) : (crt[position++] = 0x64 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x52 | 0x0f00) : (crt[position++] = 0x52 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x64 | 0x0f00) : (crt[position++] = 0x64 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 			
 			crt[position++] = 0x7c | 0x0700;
 
@@ -416,14 +416,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x52 | 0x0700) : (crt[position++] = 0x52 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x64 | 0x0700) : (crt[position++] = 0x64 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x52 | 0x0f00) : (crt[position++] = 0x52 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x64 | 0x0f00) : (crt[position++] = 0x64 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700;
 
@@ -436,14 +436,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x50 | 0x0700) : (crt[position++] = 0x50 | 0x7000);
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);
-			!isSelected ? (crt[position++] = 0x72 | 0x0700) : (crt[position++] = 0x72 | 0x7000);
-			!isSelected ? (crt[position++] = 0x70 | 0x0700) : (crt[position++] = 0x70 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x50 | 0x0f00) : (crt[position++] = 0x50 | 0xf000);
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);
+			!isSelected ? (crt[position++] = 0x72 | 0x0f00) : (crt[position++] = 0x72 | 0xf000);
+			!isSelected ? (crt[position++] = 0x70 | 0x0f00) : (crt[position++] = 0x70 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position++] = 0x7c | 0x0700; 
 
@@ -454,14 +454,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x50 | 0x0700) : (crt[position++] = 0x50 | 0x7000);
-			!isSelected ? (crt[position++] = 0x75 | 0x0700) : (crt[position++] = 0x75 | 0x7000);
-			!isSelected ? (crt[position++] = 0x72 | 0x0700) : (crt[position++] = 0x72 | 0x7000);
-			!isSelected ? (crt[position++] = 0x70 | 0x0700) : (crt[position++] = 0x70 | 0x7000);
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x50 | 0x0f00) : (crt[position++] = 0x50 | 0xf000);
+			!isSelected ? (crt[position++] = 0x75 | 0x0f00) : (crt[position++] = 0x75 | 0xf000);
+			!isSelected ? (crt[position++] = 0x72 | 0x0f00) : (crt[position++] = 0x72 | 0xf000);
+			!isSelected ? (crt[position++] = 0x70 | 0x0f00) : (crt[position++] = 0x70 | 0xf000);
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700;
 
@@ -474,14 +474,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x59 | 0x0700) : (crt[position++] = 0x59 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6f | 0x0700) : (crt[position++] = 0x6f | 0x7000); 
-			!isSelected ? (crt[position++] = 0x77 | 0x0700) : (crt[position++] = 0x77 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
+			!isSelected ? (crt[position++] = 0x59 | 0x0f00) : (crt[position++] = 0x59 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6f | 0x0f00) : (crt[position++] = 0x6f | 0xf000); 
+			!isSelected ? (crt[position++] = 0x77 | 0x0f00) : (crt[position++] = 0x77 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
 
 			crt[position++] = 0x7c | 0x0700;
 
@@ -492,14 +492,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x59 | 0x0700) : (crt[position++] = 0x59 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6c | 0x0700) : (crt[position++] = 0x6c | 0x7000); 
-			!isSelected ? (crt[position++] = 0x6f | 0x0700) : (crt[position++] = 0x6f | 0x7000); 
-			!isSelected ? (crt[position++] = 0x77 | 0x0700) : (crt[position++] = 0x77 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000); 
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x59 | 0x0f00) : (crt[position++] = 0x59 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6c | 0x0f00) : (crt[position++] = 0x6c | 0xf000); 
+			!isSelected ? (crt[position++] = 0x6f | 0x0f00) : (crt[position++] = 0x6f | 0xf000); 
+			!isSelected ? (crt[position++] = 0x77 | 0x0f00) : (crt[position++] = 0x77 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000); 
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700;
 		} else if(position == 61 + 80*8) {												// WHITE
@@ -511,14 +511,14 @@ paintPalette() {
 
 			crt[position++] = 0x7c | 0x0700;
 
-			!isSelected ? (crt[position++] = 0x57 | 0x0700) : (crt[position++] = 0x57 | 0x7000);
-			!isSelected ? (crt[position++] = 0x68 | 0x0700) : (crt[position++] = 0x68 | 0x7000);
-			!isSelected ? (crt[position++] = 0x69 | 0x0700) : (crt[position++] = 0x69 | 0x7000);
-			!isSelected ? (crt[position++] = 0x74 | 0x0700) : (crt[position++] = 0x74 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x57 | 0x0f00) : (crt[position++] = 0x57 | 0xf000);
+			!isSelected ? (crt[position++] = 0x68 | 0x0f00) : (crt[position++] = 0x68 | 0xf000);
+			!isSelected ? (crt[position++] = 0x69 | 0x0f00) : (crt[position++] = 0x69 | 0xf000);
+			!isSelected ? (crt[position++] = 0x74 | 0x0f00) : (crt[position++] = 0x74 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 			
 			crt[position++] = 0x7c | 0x0700;
 
@@ -529,14 +529,14 @@ paintPalette() {
 				isSelected = 0;
 			}
 
-			!isSelected ? (crt[position++] = 0x57 | 0x0700) : (crt[position++] = 0x57 | 0x7000);
-			!isSelected ? (crt[position++] = 0x68 | 0x0700) : (crt[position++] = 0x68 | 0x7000);
-			!isSelected ? (crt[position++] = 0x69 | 0x0700) : (crt[position++] = 0x69 | 0x7000);
-			!isSelected ? (crt[position++] = 0x74 | 0x0700) : (crt[position++] = 0x74 | 0x7000);
-			!isSelected ? (crt[position++] = 0x65 | 0x0700) : (crt[position++] = 0x65 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
-			!isSelected ? (crt[position++] = 0x20 | 0x0700) : (crt[position++] = 0x20 | 0x7000);
+			!isSelected ? (crt[position++] = 0x57 | 0x0f00) : (crt[position++] = 0x57 | 0xf000);
+			!isSelected ? (crt[position++] = 0x68 | 0x0f00) : (crt[position++] = 0x68 | 0xf000);
+			!isSelected ? (crt[position++] = 0x69 | 0x0f00) : (crt[position++] = 0x69 | 0xf000);
+			!isSelected ? (crt[position++] = 0x74 | 0x0f00) : (crt[position++] = 0x74 | 0xf000);
+			!isSelected ? (crt[position++] = 0x65 | 0x0f00) : (crt[position++] = 0x65 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
+			!isSelected ? (crt[position++] = 0x20 | 0x0f00) : (crt[position++] = 0x20 | 0xf000);
 
 			crt[position] = 0x7c | 0x0700;
 
