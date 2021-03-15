@@ -160,6 +160,7 @@ cgaputc(int c)
 		crt[pos] = currentColor | 0x0020;
 		pos += 80 - pos%80;
 	} else if(c == BACKSPACE){
+		crt[pos] = currentColor | 0x0020;
 		if(pos > 0) --pos;
 	} else
 		crt[pos++] = (c&0xff) | currentColor;  // black on white
