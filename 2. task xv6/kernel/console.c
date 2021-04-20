@@ -132,7 +132,7 @@ static void
 cgaputc(int c)
 {
 
-	if(echo == 0) {
+	if(echo == 0 && c != '\n' && c != BACKSPACE) {
 		c = '*';
 	}
 

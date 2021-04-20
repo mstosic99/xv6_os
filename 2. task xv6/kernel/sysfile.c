@@ -16,7 +16,7 @@
 #include "file.h"
 #include "fcntl.h"
 
-int key = KEY_NOT_SET;
+int key = 10;
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
@@ -79,14 +79,17 @@ sys_read(void)
 	if(argfd(0, &fd, &file) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
 		return -1;
 
-	if(file->ip->major == 0) {
-		return fileread(file, p, n);
-	} else if(file->ip->major == 1) {
-		decrypt(file, 0);
-		int ret = fileread(file, p, n);
-		encrypt(file, 0);
-		return ret;
+	
+	int ret = fileread(file, p, n);
+	
+	if(file->ip->major == 1) {
+		if(file->ip->type != T_DEV) {
+			for(int i = 0; i < ret; i++) {
+				p[i] -= key % 256;
+			}
+		}
 	}
+	return ret;
 }
 
 int
@@ -98,14 +101,16 @@ sys_write(void)
 
 	if(argfd(0, 0, &file) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
 		return -1;
-	if(file->ip->major == 0) {
-		return filewrite(file, p, n);
-	} else if(file->ip->major == 1) {
-		decrypt(file, 0);
-		int ret = filewrite(file, p, n);
-		encrypt(file, 0);
-		return ret;
-	}
+
+	if(file->ip->major == 1) {
+		if(file->ip->type != T_DEV) {
+			for(int i = 0; i < sizeof(p); i++) {
+				p[i] += key % 256;
+			}
+		}
+	} 
+
+	return filewrite(file, p, n);
 }
 
 int
@@ -504,12 +509,6 @@ sys_encr(void)
 	if(argfd(0, 0, &file) < 0)
 		return -4; 				// Neuspesno ucitavanje argumenta sa steka
 
-	return encrypt(file, str);	
-}
-
-int
-encrypt(struct file *file, char* str) {
-
 	if(key == KEY_NOT_SET)
 		return -1;				// Kljuc nije postavljen
 	if(file->ip->type == T_DEV)
@@ -519,18 +518,35 @@ encrypt(struct file *file, char* str) {
 	if(!(file->readable && file->writable))
 		return -5;				// Fajl nije otvoren za citanje i pisanje
 
-		
-	int size = fileread(file, str, file->ip->size);
+	return encrypt(file);	
+}
 
-	int key_mod = key % 256;
-	for(int i = 0; i < strlen(str); i++) {
-		// str[i] += key_mod;
-		*str++ += key_mod;
+int
+encrypt(struct file *file) {
+
+	char str[512];
+
+	begin_op();
+	ilock(file->ip);
+
+	int offset = 0;
+	while(1) {
+		int size = readi(file->ip, str, offset, sizeof(str));
+		if(size == 0)
+			break;
+		int key_mod = key % 256;
+		for(int i = 0; i < size; i++) {
+			str[i] += key_mod;
+		}
+		writei(file->ip, str, offset, size);
+		offset += size;
 	}
-	filewrite(file->ip, str, strlen(str));
-	// cprintf("%s", str);
+
+	
 	file->ip->major = 1;
 	iupdate(file->ip);
+	iunlock(file->ip);
+	end_op();
 	return 0;
 }
 
@@ -543,31 +559,43 @@ sys_decr(void)
 	if(argfd(0, 0, &file) < 0)
 		return -4; 				// Neuspesno ucitavanje argumenta sa steka
 	
-	return decrypt(file, str);
+	return decrypt(file);
 }
 
 int
-decrypt(struct file *file, char* str) {
+decrypt(struct file *file) {
 
+	char str[512];
+	
 	if(key == KEY_NOT_SET)
 		return -1;				// Kljuc nije postavljen
 	if(file->ip->type == T_DEV)
 		return -2;				// Fajl je tipa uredjaj
 	if(file->ip->major == 0)
-		return -3;				// Fajl nije enkriptovan
+		return -3;				// Fajl je vec enkriptovan
 	if(!(file->readable && file->writable))
 		return -5;				// Fajl nije otvoren za citanje i pisanje
-		
-	int size = fileread(file, str, file->ip->size);
 
-	int key_mod = key % 256;
-	for(int i = 0; i < strlen(str); i++) {
-		// str[i] -= key_mod;
-		*str++ -= key_mod;
+	begin_op();
+	ilock(file->ip);
+
+	int offset = 0;
+	while(1) {
+		int size = readi(file->ip, str, offset, sizeof(str));
+		if(size == 0)
+			break;
+		int key_mod = key % 256;
+		for(int i = 0; i < size; i++) {
+			str[i] -= key_mod;
+		}
+		writei(file->ip, str, offset, size);
+		offset += size;
 	}
-	filewrite(file->ip, str, strlen(str));
-	// cprintf("%s", str);
+
+	
 	file->ip->major = 0;
 	iupdate(file->ip);
+	iunlock(file->ip);
+	end_op();
 	return 0;
 }
