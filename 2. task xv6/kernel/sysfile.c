@@ -3,7 +3,7 @@
 // Mostly argument checking, since we don't trust
 // user code, and calls into file.c and fs.c.
 //
-
+#include "vars.h"
 #include "types.h"
 #include "defs.h"
 #include "param.h"
@@ -15,6 +15,8 @@
 #include "sleeplock.h"
 #include "file.h"
 #include "fcntl.h"
+
+int key = KEY_NOT_SET;
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
@@ -69,25 +71,41 @@ sys_dup(void)
 int
 sys_read(void)
 {
-	struct file *f;
+	struct file *file;
 	int n;
 	char *p;
+	int fd;
 
-	if(argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
+	if(argfd(0, &fd, &file) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
 		return -1;
-	return fileread(f, p, n);
+
+	if(file->ip->major == 0) {
+		return fileread(file, p, n);
+	} else if(file->ip->major == 1) {
+		decrypt(file, 0);
+		int ret = fileread(file, p, n);
+		encrypt(file, 0);
+		return ret;
+	}
 }
 
 int
 sys_write(void)
 {
-	struct file *f;
+	struct file *file;
 	int n;
 	char *p;
 
-	if(argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
+	if(argfd(0, 0, &file) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
 		return -1;
-	return filewrite(f, p, n);
+	if(file->ip->major == 0) {
+		return filewrite(file, p, n);
+	} else if(file->ip->major == 1) {
+		decrypt(file, 0);
+		int ret = filewrite(file, p, n);
+		encrypt(file, 0);
+		return ret;
+	}
 }
 
 int
@@ -445,23 +463,111 @@ sys_pipe(void)
 int
 sys_setkey(void)
 {
+	int keyarg;
+	if(argint(0, &keyarg) < 0)
+		return -1;
 
+	key = keyarg; // Global key from this file (declaration in vars.h)
+	return 0;
 }
 
 int
 sys_setecho(void)
 {
+	int do_echo;
+	if(argint(0, &do_echo) < 0)
+		return -1;
 	
+	if(do_echo == 1) {
+
+		echo = 1; // Global echo from console.c (declaration in vars.h)
+
+		return 0;
+
+	} else if(do_echo == 0) {
+
+		echo = 0;
+
+		return 0;
+
+	}
+
+	return -1;
 }
 
 int
 sys_encr(void)
 {
-	
+
+	char* str;
+	struct file *file;
+	if(argfd(0, 0, &file) < 0)
+		return -4; 				// Neuspesno ucitavanje argumenta sa steka
+
+	return encrypt(file, str);	
+}
+
+int
+encrypt(struct file *file, char* str) {
+
+	if(key == KEY_NOT_SET)
+		return -1;				// Kljuc nije postavljen
+	if(file->ip->type == T_DEV)
+		return -2;				// Fajl je tipa uredjaj
+	if(file->ip->major == 1)
+		return -3;				// Fajl je vec enkriptovan
+	if(!(file->readable && file->writable))
+		return -5;				// Fajl nije otvoren za citanje i pisanje
+
+		
+	int size = fileread(file, str, file->ip->size);
+
+	int key_mod = key % 256;
+	for(int i = 0; i < strlen(str); i++) {
+		// str[i] += key_mod;
+		*str++ += key_mod;
+	}
+	filewrite(file->ip, str, strlen(str));
+	// cprintf("%s", str);
+	file->ip->major = 1;
+	iupdate(file->ip);
+	return 0;
 }
 
 int
 sys_decr(void)
 {
+
+	char* str;
+	struct file *file;
+	if(argfd(0, 0, &file) < 0)
+		return -4; 				// Neuspesno ucitavanje argumenta sa steka
 	
+	return decrypt(file, str);
+}
+
+int
+decrypt(struct file *file, char* str) {
+
+	if(key == KEY_NOT_SET)
+		return -1;				// Kljuc nije postavljen
+	if(file->ip->type == T_DEV)
+		return -2;				// Fajl je tipa uredjaj
+	if(file->ip->major == 0)
+		return -3;				// Fajl nije enkriptovan
+	if(!(file->readable && file->writable))
+		return -5;				// Fajl nije otvoren za citanje i pisanje
+		
+	int size = fileread(file, str, file->ip->size);
+
+	int key_mod = key % 256;
+	for(int i = 0; i < strlen(str); i++) {
+		// str[i] -= key_mod;
+		*str++ -= key_mod;
+	}
+	filewrite(file->ip, str, strlen(str));
+	// cprintf("%s", str);
+	file->ip->major = 0;
+	iupdate(file->ip);
+	return 0;
 }

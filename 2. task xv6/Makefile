@@ -24,6 +24,8 @@ HDRS = \
 	$K/syscall.h\
 	$K/traps.h\
 	$K/types.h\
+	$K/vars.h\
+	$K/vars.h\
 	$K/x86.h\
 	$U/user.h\
 

@@ -16,6 +16,7 @@ struct inode {
 	int ref;            // Reference count
 	struct sleeplock lock; // protects everything below here
 	int valid;          // inode has been read from disk?
+	int key;			// current key for encription
 
 	short type;         // copy of disk inode
 	short major;
