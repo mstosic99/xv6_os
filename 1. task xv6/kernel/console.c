@@ -181,7 +181,7 @@ cgaputc(int c)
 	outb(CRTPORT+1, pos>>8);
 	outb(CRTPORT, 15);
 	outb(CRTPORT+1, pos);
-	crt[pos] = ' ' | 0x0700;
+	crt[pos] = ' ' | currentColor;
 }
 
 void
@@ -649,6 +649,7 @@ consoleintr(int (*getc)(void))
 			showColorPalette();
 			break;
 		default:
+			if(c != 0) altValidator = 0;
 			if(colorsActive) {
 				if (c == 'w') {
 					if(pair.x == 0) {

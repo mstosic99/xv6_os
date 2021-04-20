@@ -7,8 +7,8 @@ int
 kbdgetc(void)
 {
 	static uint shift;
-	static uchar *charcode[5] = {
-		normalmap, shiftmap, ctlmap, ctlmap, altmap
+	static uchar *charcode[8] = {
+		normalmap, shiftmap, ctlmap, ctlmap, altmap, altmap, altmap, altmap
 	};
 	uint st, data, c;
 
