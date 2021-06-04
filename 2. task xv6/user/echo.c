@@ -1,13 +1,17 @@
 #include "kernel/types.h"
 #include "kernel/stat.h"
 #include "user.h"
+#include "kernel/fcntl.h"
 
 int
 main(int argc, char *argv[])
 {
 	int i;
 
-	for(i = 1; i < argc; i++)
-		printf("%s%s", argv[i], i+1 < argc ? " " : "\n");
+	int fd = open("long.txt", O_RDWR);
+	write(fd, "Hello world\n", 12);
+	printf("Hello world\n");
+	close(fd);
+
 	exit();
 }
