@@ -1,3 +1,3 @@
 extern int active_terminal;
-extern short colours[6];
+extern short colour;
 extern void switch_colour(void);

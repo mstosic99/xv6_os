@@ -446,21 +446,22 @@ sys_pipe(void)
 int
 sys_colour(void)
 {	
-	short colour;
+	short col;
 	int mode;
 
-	if (argint(0, &colour) < 0 || argint(1, &mode)){
+	if (argint(0, &col) < 0 || argint(1, &mode)){
 		return -1;
 	}
 
 	if (mode == BOTH) {
-		colours[active_terminal] = colour;
+		colour = col;
 	}
 	else if (mode == FG) {
-		colours[active_terminal] = (colours[active_terminal] & 0xf0) | colour;
+		colour = (colour & 0xf0) | col;
 	} else if (mode == BG) {
-		colours[active_terminal] = (colours[active_terminal] & 0xf) | (colour << 4);
+		colour = (colour & 0xf) | (col << 4);
 	}
+
 	switch_colour();
 
 }

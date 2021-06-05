@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "colours.h": "c",
+        "fcntl.h": "c",
+        "stat.h": "c",
+        "types.h": "c",
+        "user.h": "c",
+        "console.h": "c",
+        "proc.h": "c",
+        "traps.h": "c",
+        "spinlock.h": "c",
+        "file.h": "c"
+    }
+}

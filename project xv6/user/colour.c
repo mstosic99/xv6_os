@@ -112,11 +112,7 @@ main(int argc, char *argv[])
 	else {
 		printf("Wrong parameters.\n");
 		print_help();
-	}
-	exit();
-	
-
-
+	}	
 	// colour(atoi(argv[1]));
 
 	exit();

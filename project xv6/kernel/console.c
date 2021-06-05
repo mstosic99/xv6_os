@@ -15,25 +15,15 @@
 #include "proc.h"
 #include "x86.h"
 #include "colours.h"
+#include "kbd.h"
 
 
+// short colours[6] = {0xf1, 0x70, 0x26, 0x62, 0x52, 0x07};
 
+short colour = 0x07;
 
-
-short colours[6] = {0xf0, 0x24, 0x26, 0x62, 0x52, 0x07};
 
 ushort consolebuf[80*25];
-
-int active_terminal = 0;
-
-typedef struct ttyX {
-	short colour;
-} ttyX[6];
-
-
-
-
-
 
 
 static void consputc(int);
@@ -162,8 +152,9 @@ cgaputc(int c)
 		pos += 80 - pos%80;
 	else if(c == BACKSPACE){
 		if(pos > 0) --pos;
-	} else
-		crt[pos++] = (c&0xff) | (colours[active_terminal] << 8);  // black on white
+	}
+	else
+		crt[pos++] = (c&0xff) | (colour << 8);  // black on white
 
 	if(pos < 0 || pos > 25*80)
 		panic("pos under/overflow");
@@ -174,7 +165,7 @@ cgaputc(int c)
 		pos -= 80;
 		memset(crt+pos, 0, sizeof(crt[0])*(24*80 - pos));
 		for(int i = 0; i < 80; i++){
-			crt[80*23 + i] = (colours[active_terminal] << 8) | 0x0020;
+			crt[80*23 + i] = (colour << 8) | 0x0020;
 		}
 		
 	}
@@ -183,7 +174,7 @@ cgaputc(int c)
 	outb(CRTPORT+1, pos>>8);
 	outb(CRTPORT, 15);
 	outb(CRTPORT+1, pos);
-	crt[pos] = ' ' | (colours[active_terminal] << 8);
+	crt[pos] = ' ' | (colour << 8);
 }
 
 void
@@ -204,29 +195,51 @@ consputc(int c)
 
 #define INPUT_BUF 128
 struct {
-	char buf[INPUT_BUF];
-	uint r;  // Read index
-	uint w;  // Write index
-	uint e;  // Edit index
+  char buf[INPUT_BUF];
+  uint r;  // Read index
+  uint w;  // Write index
+  uint e;  // Edit index
 } input;
 
+
+#define HISTORY_LEN 8
+
+char commands[HISTORY_LEN][INPUT_BUF];
+
+int commands_num;
+
+int recent_command;
+
+int next_command;
+
+int is_last_command;
+
+
+
+int is_partial;
+
+char partial_command[INPUT_BUF];
+
+
+
 #define C(x)  ((x)-'@')  // Control-x
+
+
 
 void
 consoleintr(int (*getc)(void))
 {
-	int c, doprocdump = 0;
 
-	acquire(&cons.lock);
-	while((c = getc()) >= 0){
+	int c, doprocdump = 0;
+  	acquire(&cons.lock);
+  	while((c = getc()) >= 0){
 		switch(c){
 		case C('P'):  // Process listing.
 			// procdump() locks cons.lock indirectly; invoke later
 			doprocdump = 1;
 			break;
 		case C('U'):  // Kill line.
-			while(input.e != input.w &&
-			      input.buf[(input.e-1) % INPUT_BUF] != '\n'){
+			while(input.e != input.w && input.buf[(input.e-1) % INPUT_BUF] != '\n'){
 				input.e--;
 				consputc(BACKSPACE);
 			}
@@ -237,24 +250,118 @@ consoleintr(int (*getc)(void))
 				consputc(BACKSPACE);
 			}
 			break;
+
+		case KEY_UP:
+
+			if(commands_num > 0){  // ako je istorija prazna ne radimo nista
+				
+				if(is_last_command == 1){
+					is_last_command = 0;
+				}
+				else{
+					if(commands_num < HISTORY_LEN){
+						recent_command = recent_command > 0 ? recent_command - 1 : recent_command;
+					}else{
+
+						if(recent_command != next_command){
+							recent_command = recent_command > 0 ? recent_command - 1 : HISTORY_LEN - 1;
+						}
+					}
+				}
+
+				while(input.e != input.w){
+					input.e--;
+					consputc(BACKSPACE);
+				}
+
+				while(commands[recent_command][input.e-input.w] != '\n'){
+					input.buf[input.e] = commands[recent_command][input.e-input.w];
+					consputc(commands[recent_command][(input.e)-input.w]);
+					input.e++;
+				}
+
+			}
+			break;
+
+		case KEY_DN:
+
+			if(commands_num > 0){
+				
+				if(commands_num < HISTORY_LEN){
+					if(recent_command<commands_num - 1){
+						recent_command++;
+						is_last_command = 0;
+					}else{
+						is_last_command = 1;
+					}
+				}else{
+					if(recent_command < HISTORY_LEN - 1){
+						if(recent_command != next_command - 1){
+							recent_command++;
+							is_last_command = 0;
+						}else{
+							is_last_command = 1;
+						}
+					}else{
+						if(next_command != 0){
+							recent_command = 0;
+							is_last_command = 0;
+						}else{
+							is_last_command = 1;
+						}
+					}
+				}
+				
+				while(input.e != input.w ){
+					input.e--;
+					consputc(BACKSPACE);
+				}
+
+				if(is_last_command == 0){
+					while(commands[recent_command][input.e-input.r] != '\n'){
+						input.buf[input.e] = commands[recent_command][input.e - input.r];
+						consputc(commands[recent_command][(input.e) - input.r]);
+						input.e++;
+					}
+				}
+			}
+			break;
+
 		default:
 			if(c != 0 && input.e-input.r < INPUT_BUF){
 				c = (c == '\r') ? '\n' : c;
 				input.buf[input.e++ % INPUT_BUF] = c;
 				consputc(c);
+
 				if(c == '\n' || c == C('D') || input.e == input.r+INPUT_BUF){
+
 					input.w = input.e;
+
+					if(strlen(input.buf) > 0){  // input.e == input.r kad je input.buf prazan (strlen(input.buf) == 0)
+						
+						for(int i = input.r; i < input.w; i++){
+							commands[next_command][i - input.r] = input.buf[i];
+						}
+
+						recent_command = next_command;
+						next_command = (next_command + 1) % HISTORY_LEN;
+						is_last_command = 1;
+
+						if(commands_num < HISTORY_LEN){
+							commands_num++;
+						}
+					
+
+					}
 					wakeup(&input.r);
 				}
 			}
 			break;
 		}
-	}
-	release(&cons.lock);
-	if(doprocdump) {
-		procdump();  // now call procdump() wo. cons.lock held
-	}
+  	}
+  release(&cons.lock);
 }
+
 
 int
 consoleread(struct inode *ip, char *dst, int n)
@@ -325,11 +432,11 @@ void
 switch_colour() {
 
 	for(int i = 0; i < 80*25; i++) {
-		consolebuf[i] = crt[i];
+		consolebuf[i] = (crt[i] & 0xff) | (colour << 8);
 	}
 
-	for(int i = 0; i < 80*25; i++) {
-		crt[i] = (consolebuf[i] & 0x00ff) | (colours[active_terminal] << 8);
+	for(int i = 0; i < 80*25; i++) { 
+		crt[i] = (crt[i] & 0xff) | (colour << 8);
 	}
 }
 
