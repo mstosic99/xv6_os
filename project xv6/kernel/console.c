@@ -193,7 +193,7 @@ consputc(int c)
 	cgaputc(c);
 }
 
-#define INPUT_BUF 128
+#define INPUT_BUF 256
 struct {
   char buf[INPUT_BUF];
   uint r;  // Read index
@@ -262,7 +262,6 @@ consoleintr(int (*getc)(void))
 					if(commands_num < HISTORY_LEN){
 						recent_command = recent_command > 0 ? recent_command - 1 : recent_command;
 					}else{
-
 						if(recent_command != next_command){
 							recent_command = recent_command > 0 ? recent_command - 1 : HISTORY_LEN - 1;
 						}
@@ -274,11 +273,13 @@ consoleintr(int (*getc)(void))
 					consputc(BACKSPACE);
 				}
 
+				
 				while(commands[recent_command][input.e-input.w] != '\n'){
 					input.buf[input.e] = commands[recent_command][input.e-input.w];
 					consputc(commands[recent_command][(input.e)-input.w]);
 					input.e++;
 				}
+				
 
 			}
 			break;
@@ -312,7 +313,7 @@ consoleintr(int (*getc)(void))
 					}
 				}
 				
-				while(input.e != input.w ){
+				while(input.e != input.w){
 					input.e--;
 					consputc(BACKSPACE);
 				}
@@ -329,15 +330,17 @@ consoleintr(int (*getc)(void))
 
 		default:
 			if(c != 0 && input.e-input.r < INPUT_BUF){
+				
 				c = (c == '\r') ? '\n' : c;
 				input.buf[input.e++ % INPUT_BUF] = c;
-				consputc(c);
+				consputc(c);	
+				
+				
 
-				if(c == '\n' || c == C('D') || input.e == input.r+INPUT_BUF){
+				if(c == '\n' || c == C('D') || input.e == input.r+INPUT_BUF) {
 
 					input.w = input.e;
-
-					if(strlen(input.buf) > 0){  // input.e == input.r kad je input.buf prazan (strlen(input.buf) == 0)
+					if(input.e > input.r + 1){  // input.e == input.r + 1 kad je input.buf prazan
 						
 						for(int i = input.r; i < input.w; i++){
 							commands[next_command][i - input.r] = input.buf[i];
@@ -353,6 +356,7 @@ consoleintr(int (*getc)(void))
 					
 
 					}
+					
 					wakeup(&input.r);
 				}
 			}
@@ -392,8 +396,11 @@ consoleread(struct inode *ip, char *dst, int n)
 		}
 		*dst++ = c;
 		--n;
-		if(c == '\n')
+		if(c == '\n'){
+			
 			break;
+		}
+			
 	}
 	release(&cons.lock);
 	ilock(ip);
